@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f2">
+  <title>Невелике завдання</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="brand" href="#">
+      <span class="brand-mark">✳</span>
+      <span id="header-title">Невелике завдання</span>
+    </a>
+    <div class="header-right">
+      <span id="header-progress">Початок</span>
+      <div class="progress-track">
+        <span id="header-progress-fill"></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-shell">
+
+    <!-- INTRO -->
+    <section class="screen active intro-screen" id="intro-screen">
+      <div class="eyebrow">✳ Маленьке інтерактивне завдання</div>
+
+      <img class="troll-sticker troll-intro" src="Assets/trollface.png" alt="">
+
+      <h1 class="intro-heading">
+        Спочатку —<br>
+        <span>одна маленька річ.</span>
+      </h1>
+
+      <p class="intro-copy">
+        Перетягни слова у правильному порядку, щоб скласти назву.
+        Не хвилюйся, це нескладно.
+      </p>
+
+      <div class="title-game panel">
+        <div class="panel-topline">
+          <span>КРОК 01</span>
+          <span>Склади фразу</span>
+        </div>
+
+        <div class="drop-slots" id="title-slots"></div>
+        <div class="word-bank" id="word-bank"></div>
+
+        <p class="micro-hint" id="title-feedback">
+          На телефоні натисни слово, а потім місце, куди хочеш його поставити.
+        </p>
+
+        <button class="primary-button" id="start-button" hidden>
+          Почати <span>→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <section class="screen countdown-screen" id="countdown-screen">
+      <div class="countdown-card">
+        <span class="eyebrow">Готово до початку?</span>
+        <div class="countdown-number" id="countdown-number">3</div>
+        <p id="countdown-caption">Починаємо за мить…</p>
+      </div>
+    </section>
+
+    <!-- PUZZLES -->
+    <section class="screen puzzle-screen" id="puzzle-screen">
+
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">
+            ЗАВДАННЯ <span id="stage-number">01 / 20</span>
+          </div>
+
+          <h1 id="puzzle-heading">Склади зображення</h1>
+          <p id="puzzle-subtitle">Виконай завдання, щоб перейти далі.</p>
+        </div>
+
+        <button class="help-button" id="show-tutorial">
+          ? Як грати
+        </button>
+      </div>
+
+      <div class="puzzle-layout">
+
+        <div class="puzzle-panel panel">
+          <div class="panel-topline">
+            <span id="puzzle-counter">ЕТАП 01</span>
+            <span id="piece-count">9 ЧАСТИН</span>
+          </div>
+
+          <div id="puzzle-grid" class="puzzle-grid"></div>
+
+          <div class="puzzle-bottom">
+            <span id="puzzle-status">У тебе все вийде.</span>
+            <button class="text-button" id="shuffle-button">
+              Перемішати
+            </button>
+          </div>
+        </div>
+
+        <aside class="side-panel">
+          <div class="side-card">
+            <img class="troll-sticker side-troll" src="Assets/trollface.png" alt="">
+            <h3>Маленька підказка</h3>
+            <p id="side-hint">
+              Уважно подивись на зображення та спробуй знайти правильний порядок.
+            </p>
+            <button class="text-button" id="example-button">
+              Як це працює?
+            </button>
+          </div>
+
+          <div class="side-card progress-card">
+            <div class="progress-row">
+              <span>Твій прогрес</span>
+              <strong id="progress-fraction">0 / 20</strong>
+            </div>
+
+            <div class="wide-progress">
+              <span id="progress-fill"></span>
+            </div>
+
+            <p id="progress-description">20 етапів. Удачі.</p>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- COMPLETED -->
+    <section class="screen complete-screen" id="complete-screen">
+      <div class="complete-card">
+        <img class="troll-sticker complete-troll" src="Assets/trollface.png" alt="">
+        <div class="complete-icon">✓</div>
+        <div class="eyebrow">УСІ ЗАВДАННЯ ВИКОНАНО</div>
+        <h1>Чудова робота.</h1>
+        <p>Ти пройшов усі 20 етапів.</p>
+
+        <button class="primary-button" id="reveal-gallery">
+          Перейти далі →
+        </button>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="screen gallery-screen" id="gallery-screen">
+      <div class="gallery-heading">
+        <div class="eyebrow">✳ Усе зібрано</div>
+        <h1>Усі зображення</h1>
+        <p>Ось що вийшло зібрати.</p>
+      </div>
+
+      <div class="gallery-grid" id="gallery-grid"></div>
+
+      <div class="gallery-footer">
+        <span id="gallery-total"></span>
+        <button class="text-button" id="back-to-top">
+          На початок ↑
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TUTORIAL -->
+  <div class="modal-backdrop" id="tutorial-modal" aria-hidden="true">
+    <div class="modal panel">
+
+      <img class="troll-sticker modal-troll" src="Assets/trollface.png" alt="">
+
+      <button class="modal-close" id="close-tutorial">×</button>
+
+      <div class="eyebrow">КОРОТКА ІНСТРУКЦІЯ</div>
+      <h2 id="tutorial-title">Як грати</h2>
+
+      <div id="tutorial-steps" class="tutorial-steps"></div>
+
+      <div class="example-wrap">
+        <strong>ПАМ'ЯТАЙ</strong>
+        <p id="example-description"></p>
+      </div>
+
+      <button class="primary-button modal-start" id="tutorial-understood">
+        Зрозуміло ✓
+      </button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
