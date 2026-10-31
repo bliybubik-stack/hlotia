@@ -506,27 +506,25 @@
   /* START GAME */
 
   function startPuzzles() {
-    if (!state.images.length) {
-      showScreen("complete-screen");
-
-      $(".complete-card p").textContent =
-        "У папці Assets поки немає зображень. Додай файли й онови сторінку.";
-
-      $("#reveal-gallery").hidden = true;
-
-      return;
-    }
-
-    $("#reveal-gallery").hidden = false;
-
-    state.imageIndex = 0;
-
-    beginImage();
-
-    showScreen("puzzle-screen");
-
-    openTutorial();
+  if (!state.images.length) {
+    showScreen("complete-screen");
+    $(".complete-card p").textContent = "У папці Assets поки немає зображень. Додай файли й онови сторінку.";
+    $("#reveal-gallery").hidden = true;
+    return;
   }
+
+  $("#reveal-gallery").hidden = false;
+
+  // Randomize all available images every time the game starts.
+  state.images = shuffle(state.images);
+
+  state.imageIndex = 0;
+  state.previousModeOrder = "";
+
+  beginImage();
+  showScreen("puzzle-screen");
+  openTutorial();
+}
 
   /*
    * RANDOM MODE ORDER
