@@ -1,608 +1,379 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f5f5f2">
-
-  <meta name="description" content="Невелике інтерактивне завдання.">
 
   <title>Невелике завдання</title>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Lucide icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="site-header">
+<header class="site-header">
+  <a class="brand" href="#">
+    <span class="brand-mark">
+      <i data-lucide="shapes"></i>
+    </span>
+    <span id="header-title">Невелике завдання</span>
+  </a>
 
-    <a class="brand" href="#" aria-label="На початок">
+  <div class="header-right">
+    <span id="header-progress">Початок</span>
+    <div class="progress-track">
+      <span id="header-progress-fill"></span>
+    </div>
+  </div>
+</header>
 
-      <span class="brand-mark">
-        <i data-lucide="shapes"></i>
-      </span>
+<main class="page-shell">
 
-      <span id="header-title">
-        Невелике завдання
-      </span>
+  <!-- INTRO -->
 
-    </a>
+  <section class="screen active" id="intro-screen">
 
-    <div class="header-right">
+    <div class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      Маленьке інтерактивне завдання
+    </div>
 
-      <span class="progress-label" id="header-progress">
-        Початок
-      </span>
+    <h1 class="intro-heading">
+      Спочатку —<br>
+      <span>одна маленька річ.</span>
+    </h1>
 
-      <span class="progress-track">
-        <span id="header-progress-fill"></span>
-      </span>
+    <p class="intro-copy">
+      Перетягни слова у правильному порядку, щоб скласти назву.
+      Не поспішай — тут усе просто.
+    </p>
+
+    <div class="panel title-game">
+
+      <div class="panel-topline">
+        <span>КРОК 01</span>
+        <span>СКЛАДИ ФРАЗУ</span>
+      </div>
+
+      <div id="title-slots" class="drop-slots"></div>
+
+      <div id="word-bank" class="word-bank"></div>
+
+      <p id="title-feedback" class="micro-hint">
+        Перетягни слова у правильному порядку.
+      </p>
 
     </div>
 
-  </header>
+  </section>
 
 
-  <!-- MAIN -->
-  <main class="page-shell">
+  <!-- COUNTDOWN -->
 
+  <section class="screen countdown-screen" id="countdown-screen">
 
-    <!-- INTRO / TITLE PUZZLE -->
-    <section
-      class="intro-screen screen active"
-      id="intro-screen"
-    >
+    <div class="countdown-card">
 
-      <div class="eyebrow">
-        <span class="eyebrow-dot"></span>
-        Маленьке інтерактивне завдання
+      <span class="eyebrow">Готово до початку?</span>
+
+      <div id="countdown-number" class="countdown-number">
+        3
       </div>
 
-      <h1 class="intro-heading">
-        Спочатку —<br>
-        <span>одна маленька річ.</span>
-      </h1>
-
-      <p class="intro-copy">
-        Перетягни слова у правильному порядку,
-        щоб скласти назву. Не поспішай —
-        тут усе просто.
+      <p id="countdown-caption">
+        Починаємо за мить…
       </p>
 
+    </div>
 
-      <!-- TITLE GAME -->
-      <div class="title-game panel">
+  </section>
+
+
+  <!-- MAIN GAME -->
+
+  <section class="screen" id="puzzle-screen">
+
+    <div class="section-heading">
+
+      <div>
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          ЗАВДАННЯ <span id="puzzle-number">01</span>
+        </div>
+
+        <h1 id="puzzle-heading">
+          Склади зображення
+        </h1>
+
+        <p id="puzzle-subtitle">
+          Виконай завдання, щоб отримати частину великої картини.
+        </p>
+      </div>
+
+      <button class="help-button" id="show-tutorial">
+        <i data-lucide="circle-help"></i>
+        Як грати
+      </button>
+
+    </div>
+
+
+    <!-- BIG PICTURE PROGRESS -->
+
+    <div class="mosaic-panel panel">
+
+      <div class="mosaic-top">
+        <div>
+          <span class="mosaic-label">ВЕЛИКА КАРТИНА</span>
+          <h3>Зібрані частини</h3>
+        </div>
+
+        <span id="mosaic-count">0 / 0</span>
+      </div>
+
+      <div class="mosaic-grid" id="mosaic-grid"></div>
+
+      <div class="mosaic-bottom">
+        <span id="mosaic-message">
+          Кожне завдання відкриває нову частину.
+        </span>
+        <span id="mosaic-percent">0%</span>
+      </div>
+
+      <div class="wide-progress">
+        <span id="mosaic-progress"></span>
+      </div>
+
+    </div>
+
+
+    <!-- GAME AREA -->
+
+    <div class="puzzle-layout">
+
+      <div class="panel puzzle-panel">
 
         <div class="panel-topline">
-          <span>КРОК 01</span>
-          <span>Склади фразу</span>
+          <span id="puzzle-counter">ЗОБРАЖЕННЯ 01</span>
+          <span id="puzzle-type">ЗАВДАННЯ 01</span>
         </div>
 
-        <div
-          class="drop-slots"
-          id="title-slots"
-          aria-label="Місця для слів"
-        ></div>
+        <div id="game-instructions" class="game-instructions">
+          Уважно прочитай інструкцію.
+        </div>
 
-        <div
-          class="word-bank"
-          id="word-bank"
-          aria-label="Слова для перетягування"
-        ></div>
+        <div id="puzzle-grid" class="game-area"></div>
 
-        <p
-          class="micro-hint"
-          id="title-feedback"
-        >
-          Перетягни слово в порожнє місце.
-          На телефоні можна просто натиснути
-          слово, а потім місце.
-        </p>
+        <div class="puzzle-bottom">
+
+          <span id="puzzle-status">
+            Виконай завдання.
+          </span>
+
+          <button class="text-button" id="shuffle-button">
+            <i data-lucide="shuffle"></i>
+            Почати знову
+          </button>
+
+        </div>
 
       </div>
 
-    </section>
 
+      <aside class="side-panel">
 
-    <!-- COUNTDOWN -->
-    <section
-      class="countdown-screen screen"
-      id="countdown-screen"
-    >
+        <div class="side-card">
 
-      <div class="countdown-card">
+          <span class="side-icon">
+            <i data-lucide="lightbulb"></i>
+          </span>
 
-        <span class="eyebrow">
-          Готова до початку?
-        </span>
+          <h3>Маленька підказка</h3>
 
-        <div
-          class="countdown-number"
-          id="countdown-number"
-        >
-          3
+          <p id="hint-text">
+            Звертай увагу на деталі та не поспішай.
+          </p>
+
+          <button class="text-button" id="show-example">
+            <i data-lucide="eye"></i>
+            Показати приклад
+          </button>
+
         </div>
 
-        <p id="countdown-caption">
-          Починаємо за мить…
-        </p>
 
-      </div>
+        <div class="side-card">
 
-    </section>
-
-
-    <!-- MAIN PUZZLE SCREEN -->
-    <section
-      class="puzzle-screen screen"
-      id="puzzle-screen"
-    >
-
-      <!-- SECTION HEADING -->
-      <div class="section-heading">
-
-        <div>
-
-          <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
-            Завдання
-
-            <span id="puzzle-number">
-              01
-            </span>
-
+          <div class="progress-row">
+            <span>Твій прогрес</span>
+            <strong id="progress-fraction">0 / 0</strong>
           </div>
 
-          <h1 id="puzzle-heading">
-            Склади зображення
-          </h1>
+          <div class="wide-progress">
+            <span id="progress-fill"></span>
+          </div>
 
-          <p id="puzzle-subtitle">
-            Виконуй завдання, щоб відкрити наступний етап.
+          <p id="progress-description">
+            Кожне завершене завдання відкриває наступне.
           </p>
 
         </div>
 
+      </aside>
 
-        <button
-          class="help-button"
-          id="show-tutorial"
-          type="button"
-        >
+    </div>
 
-          <i data-lucide="circle-help"></i>
+  </section>
 
-          <span>
-            Як грати
-          </span>
 
-        </button>
+  <!-- PUZZLE COMPLETED -->
 
-      </div>
+  <section class="screen complete-screen" id="complete-screen">
 
+    <div class="complete-card">
 
-      <!-- GAME LAYOUT -->
-      <div class="puzzle-layout">
-
-
-        <!-- MAIN GAME PANEL -->
-        <div class="puzzle-panel panel">
-
-
-          <!-- PANEL HEADER -->
-          <div class="panel-topline">
-
-            <span id="puzzle-counter">
-              ЗАВДАННЯ 01 / 15
-            </span>
-
-            <span id="piece-count">
-              МІНІГРА ГРА
-            </span>
-
-          </div>
-
-
-          <!-- MOSAIC PROGRESS -->
-          <div class="mosaic-heading">
-
-            <span>
-              ЗІБРАНЕ ЗОБРАЖЕННЯ
-            </span>
-
-            <strong id="mosaic-count">
-              0 / 15
-            </strong>
-
-          </div>
-
-          <div
-            class="picture-mosaic"
-            id="picture-mosaic"
-            aria-label="Прогрес складання зображення"
-          >
-
-            <!--
-              JavaScript generates
-              all 15 mosaic pieces here.
-            -->
-
-          </div>
-
-
-          <!-- ORIGINAL PUZZLE GRID -->
-          <div
-            class="puzzle-grid"
-            id="puzzle-grid"
-            aria-label="Ігрове поле"
-            style="display:none"
-          ></div>
-
-
-          <!-- MINI GAME CONTAINER -->
-          <div
-            class="mini-game-area"
-            id="mini-game-area"
-          >
-
-            <!--
-              JavaScript generates
-              the current mini-game here.
-            -->
-
-          </div>
-
-
-          <!-- GAME STATUS -->
-          <div class="puzzle-bottom">
-
-            <span id="puzzle-status">
-              Виконай завдання, щоб продовжити.
-            </span>
-
-            <button
-              class="text-button"
-              id="shuffle-button"
-              type="button"
-              style="display:none"
-            >
-
-              <i data-lucide="shuffle"></i>
-
-              Перемішати
-
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <!-- SIDEBAR -->
-        <aside class="side-panel">
-
-
-          <!-- HINT -->
-          <div class="side-card">
-
-            <span class="side-icon">
-              <i data-lucide="lightbulb"></i>
-            </span>
-
-            <h3>
-              Маленька підказка
-            </h3>
-
-            <p>
-              Уважно прочитай завдання.
-              Кожна гра має власні правила.
-              Якщо щось незрозуміло,
-              відкрий інструкцію.
-            </p>
-
-            <button
-              class="text-button"
-              id="example-button"
-              type="button"
-            >
-
-              Показати приклад
-
-              <i data-lucide="arrow-up-right"></i>
-
-            </button>
-
-          </div>
-
-
-          <!-- PROGRESS -->
-          <div class="side-card progress-card">
-
-            <div class="progress-row">
-
-              <span>
-                Твій прогрес
-              </span>
-
-              <strong id="progress-fraction">
-                0 / 15
-              </strong>
-
-            </div>
-
-            <div class="wide-progress">
-
-              <span id="progress-fill"></span>
-
-            </div>
-
-            <p id="progress-description">
-              Кожне завершене завдання відкриває наступне.
-            </p>
-
-          </div>
-
-        </aside>
-
-      </div>
-
-    </section>
-
-
-    <!-- COMPLETION SCREEN -->
-    <section
-      class="complete-screen screen"
-      id="complete-screen"
-    >
-
-      <div class="complete-card">
-
-        <div class="complete-icon">
-          <i data-lucide="check"></i>
-        </div>
-
-        <span class="eyebrow">
-          Усі завдання виконано
-        </span>
-
-        <h1>
-          Чудова робота.
-        </h1>
-
-        <p>
-          Тепер можна подивитися на все разом.
-        </p>
-
-        <button
-          class="primary-button"
-          id="reveal-gallery"
-          type="button"
-        >
-
-          Перейти далі
-
-          <i data-lucide="arrow-right"></i>
-
-        </button>
-
-      </div>
-
-    </section>
-
-
-    <!-- FINAL GALLERY -->
-    <section
-      class="gallery-screen screen"
-      id="gallery-screen"
-    >
-
-      <div class="gallery-heading">
-
-        <div class="eyebrow">
-          <span class="eyebrow-dot"></span>
-          Усе зібрано
-        </div>
-
-        <h1>
-          Усі зображення
-        </h1>
-
-        <p>
-          Ось що вийшло зібрати.
-        </p>
-
-      </div>
-
-
-      <!-- Images generated by JavaScript -->
-      <div
-        class="gallery-grid"
-        id="gallery-grid"
-      ></div>
-
-
-      <div class="gallery-footer">
-
-        <span id="gallery-total"></span>
-
-        <button
-          class="text-button"
-          id="back-to-top"
-          type="button"
-        >
-
-          На початок
-
-          <i data-lucide="arrow-up"></i>
-
-        </button>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- TUTORIAL MODAL -->
-  <div
-    class="modal-backdrop"
-    id="tutorial-modal"
-    aria-hidden="true"
-  >
-
-    <div
-      class="modal panel"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="tutorial-title"
-    >
-
-      <button
-        class="modal-close"
-        id="close-tutorial"
-        type="button"
-        aria-label="Закрити"
-      >
-
-        <i data-lucide="x"></i>
-
-      </button>
-
-
-      <div class="eyebrow">
-        Коротка інструкція
-      </div>
-
-
-      <h2 id="tutorial-title">
-        Як виконати завдання
-      </h2>
-
-
-      <!-- Dynamic tutorial steps -->
-      <div class="tutorial-steps">
-
-        <div class="tutorial-step">
-
-          <span>01</span>
-
-          <div>
-
-            <strong>
-              Прочитай завдання
-            </strong>
-
-            <p>
-              Уважно ознайомся з умовою.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="tutorial-step">
-
-          <span>02</span>
-
-          <div>
-
-            <strong>
-              Подивись на приклад
-            </strong>
-
-            <p>
-              Приклад допоможе зрозуміти правила.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="tutorial-step">
-
-          <span>03</span>
-
-          <div>
-
-            <strong>
-              Виконай завдання
-            </strong>
-
-            <p>
-              Правильна відповідь відкриє наступний етап.
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- Dynamic example -->
-      <div class="example-wrap">
-
-        <div class="example-caption">
-          ПРИКЛАД
-        </div>
-
-        <p>
-          Прочитай інструкцію та спробуй виконати завдання.
-        </p>
-
-      </div>
-
-
-      <button
-        class="primary-button modal-start"
-        id="tutorial-understood"
-        type="button"
-      >
-
-        Зрозуміло
-
+      <div class="complete-icon">
         <i data-lucide="check"></i>
+      </div>
 
+      <span class="eyebrow">
+        ЗАВДАННЯ ВИКОНАНО
+      </span>
+
+      <h1>Чудова робота.</h1>
+
+      <p id="complete-description">
+        Ти відкрила нову частину картини.
+      </p>
+
+      <div id="completed-preview" class="completed-preview"></div>
+
+      <button class="primary-button" id="continue-button">
+        Наступне завдання
+        <i data-lucide="arrow-right"></i>
       </button>
 
     </div>
 
+  </section>
+
+
+  <!-- FINAL GALLERY -->
+
+  <section class="screen" id="gallery-screen">
+
+    <div class="gallery-heading">
+
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        УСІ ЗАВДАННЯ ВИКОНАНО
+      </div>
+
+      <h1>Усе зібрано.</h1>
+
+      <p>
+        Ось усі зображення, які ти відкрила.
+      </p>
+
+    </div>
+
+    <div class="final-mosaic panel">
+
+      <div class="mosaic-top">
+        <div>
+          <span class="mosaic-label">ТВОЯ КОЛЕКЦІЯ</span>
+          <h3>Велика картина</h3>
+        </div>
+        <i data-lucide="image"></i>
+      </div>
+
+      <div id="final-mosaic-grid" class="final-mosaic-grid"></div>
+
+    </div>
+
+    <div class="gallery-grid" id="gallery-grid"></div>
+
+    <div class="gallery-footer">
+
+      <span id="gallery-total"></span>
+
+      <button class="text-button" id="back-to-top">
+        На початок
+        <i data-lucide="arrow-up"></i>
+      </button>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- TUTORIAL MODAL -->
+
+<div class="modal-backdrop" id="tutorial-modal">
+
+  <div class="modal panel">
+
+    <button class="modal-close" id="close-tutorial">
+      <i data-lucide="x"></i>
+    </button>
+
+    <div class="eyebrow">
+      КОРОТКА ІНСТРУКЦІЯ
+    </div>
+
+    <h2 id="tutorial-title">
+      Як виконати завдання
+    </h2>
+
+    <div id="tutorial-content" class="tutorial-steps"></div>
+
+    <div class="example-wrap">
+
+      <div class="example-caption">
+        ПРИКЛАД
+      </div>
+
+      <div class="example-board">
+        <span>3</span>
+        <span>1</span>
+        <span>2</span>
+        <span class="example-correct">1</span>
+        <span>2</span>
+        <span>3</span>
+      </div>
+
+      <p>
+        Використовуй мишку або натискання на екрані телефона.
+      </p>
+
+    </div>
+
+    <button class="primary-button modal-start" id="tutorial-understood">
+      Зрозуміло
+      <i data-lucide="check"></i>
+    </button>
+
   </div>
 
-
-  <!-- TOAST NOTIFICATIONS -->
-  <div
-    class="toast"
-    id="toast"
-    role="status"
-    aria-live="polite"
-  ></div>
+</div>
 
 
-  <!-- APPLICATION SCRIPT -->
-  <script src="app.js"></script>
+<!-- PARTICLES -->
 
+<div id="particle-layer"></div>
 
-  <!-- INITIALIZE LUCIDE ICONS -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      if (window.lucide) {
-        window.lucide.createIcons();
-      }
-    });
-  </script>
+<div id="toast" class="toast"></div>
+
+<script src="app.js"></script>
 
 </body>
 </html>
